@@ -63,7 +63,7 @@ fi
 _solc="true"
 _hardhat="true"
 _py="python"
-_pkg=solidity-compiler
+_pkg=neidel-release
 pkgbase="${_pkg}"
 pkgname=(
   "${_pkg}"
@@ -73,11 +73,11 @@ if [[ "${_docs}" == "true" ]]; then
     "${_pkg}-docs"
   )
 fi
-pkgver="0.0.0.0.0.0.0.0.0.0.1.1"
-_commit="f7353dcfb3f7a4c21012f07daf38a2f46fc7a8a4"
+pkgver="1.0"
+_commit="cc7ba70b7831fa010afc8af19bf6a8929e07328e"
 pkgrel=1
 _pkgdesc=(
-  "Solidity compiler supporting multiple backends."
+  "The Jonathan Neidel release tool."
 )
 pkgdesc="${_pkgdesc[*]}"
 arch=(
@@ -90,39 +90,13 @@ license=(
   'AGPL3'
 )
 depends=(
-  "libcrash-bash"
+  "git"
+  "namcap"
+  "pacman"
   "sed"
+  "wget"
 )
 optdepends=()
-if [[ "${_hardhat}" == "true" ]]; then
-  depends+=(
-    "indent"
-    "solidity-analyzer"
-    "hardhat"
-  )
-  if [[ "${_os}" == "GNU/Linux" ]] && \
-     [[ "${_os}" != "Android" ]]; then
-    depends+=(
-      'findutils'
-      'cpio'
-      'eslint-plugin-hardhat-internal-rules'
-      'eslint-plugin-slow-imports'
-    )
-  fi
-elif [[ "${_hardhat}" == "false" ]]; then
-  optdepends+=(
-    "hardhat: hardhat backend support"
-  )
-fi
-if [[ "${_solc}" == "true" ]]; then
-  depends+=(
-    "solidity"
-  )
-elif [[ "${_solc}" == "false" ]]; then
-  optdepends+=(
-    "solidity: solc backend support"
-  )
-fi
 if [[ "${_os}" != "GNU/Linux" ]] && \
    [[ "${_os}" == "Android" ]]; then
   depends+=(
@@ -130,13 +104,6 @@ if [[ "${_os}" != "GNU/Linux" ]] && \
   optdepends+=(
   )
 fi
-_solidity_optdepends=(
-  "solidityX.Y.Z:"
-    "support for solc version X.Y.Z in the correspondent backend."
-)
-optdepends+=(
-  "${_solidity_optdepends[*]}"
-)
 makedepends=(
   'make'
 )
@@ -156,9 +123,12 @@ _tarfile="${_tarname}.${_archive_format}"
 if [[ "${_offline}" == "true" ]]; then
   _url="file://${HOME}/${pkgname}"
 fi
-_sum="13c5edc5a7c43879f42df2b473112331816a91a681c72946549f5d8e6a9ccd82"
-_sig_sum="5cf0073110b0738ea519b0b30d69c6feb346dfad7c6c946cf00eb0c0aef59be0"
+_sum="f159d6764b1da543e15176c280bde9607abd6b572a985a3f3f3850d16c7e6352"
+_sig_sum="588f2402aae771f6ab8a7250c8a91f23836a7a9fe355a787253c5bc69a54bb6a"
+# Dvorak
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+# Truocolo
+_evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
 _evmfs_network="100"
 _evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
 _evmfs_dir="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}"
@@ -223,7 +193,7 @@ check() {
     check
 }
 
-package_solidity-compiler() {
+package_neidel-release() {
   local \
     _make_opts=()
   _make_opts+=(
@@ -242,7 +212,7 @@ package_solidity-compiler() {
     "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
-package_solidity-compiler-docs() {
+package_neidel-release-docs() {
   local \
     _make_opts=()
   depends=()

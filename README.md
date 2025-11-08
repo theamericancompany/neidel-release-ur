@@ -19,7 +19,7 @@
 [comment]: <> (License along with this program.)
 [comment]: <> (If not, see <https://www.gnu.org/licenses/>.)
 
-# `solidity-compiler`
+# `neidel-release`
 
 universal recipe for
 [user repo](
